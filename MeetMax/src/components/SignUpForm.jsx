@@ -1,23 +1,16 @@
 import { useState } from "react";
 import {
-  Mail,
-  User,
-  Lock,
   Eye,
   EyeOff,
-  Calendar,
-  Mars,
-  Venus,
 } from "lucide-react";
 
-import GoogleIcon from "../assets/icons/Google.svg";
-import AppleIcon from "../assets/icons/Apple.svg";
 import EmailIcon from "../assets/icons/Mail-@.svg";
-import MaleIcon from "../assets/icons/male.svg"
+import MaleIcon from "../assets/icons/male.svg";
 import FemaleIcon from "../assets/icons/Female.svg";
 import UserIcon from "../assets/icons/Smile.svg";
 import LockIcon from "../assets/icons/Lock.svg";
 import CalendarIcon from "../assets/icons/Calendar.svg";
+import { Link } from "react-router-dom";
 
 export default function SignUpForm() {
   const [form, setForm] = useState({
@@ -50,27 +43,6 @@ export default function SignUpForm() {
 
   return (
     <div className="mt-6">
-      {/* Social login */}
-      <div className="grid grid-cols-2 gap-3">
-        <button
-          type="button"
-          className="flex items-center justify-center gap-1 rounded-lg border bg-white px-3 py-2 text-sm hover:bg-gray-50"
-          title="Continue with Google"
-        >
-          <img src={GoogleIcon} alt="Google" className="h-4 w-4" />
-          <span className="text-xs text-gray-600">Log in with Google</span>
-        </button>
-        <button
-          type="button"
-          className="flex items-center justify-center gap-1 rounded-lg border bg-white px-3 py-2 text-sm hover:bg-gray-50"
-          title="Continue with Apple"
-        >
-          <img src={AppleIcon} alt="Google" className="h-4 w-4" />
-          <span className="text-xs text-gray-600 ">Log in with Apple</span>
-        </button>
-      </div>
-
-      {/* Divider */}
       <div className="my-4 flex items-center gap-3">
         <div className="h-px flex-1 bg-gray-200" />
         <span className="text-xs text-gray-400">OR</span>
@@ -81,7 +53,10 @@ export default function SignUpForm() {
       <form onSubmit={onSubmit} className="space-y-3" noValidate>
         {/* Email */}
         <div className="relative">
-          <img src={EmailIcon} className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+          <img
+            src={EmailIcon}
+            className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400"
+          />
           <input
             type="email"
             name="email"
@@ -95,7 +70,10 @@ export default function SignUpForm() {
 
         {/* Name */}
         <div className="relative">
-          <img src={UserIcon} className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+          <img
+            src={UserIcon}
+            className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400"
+          />
           <input
             type="text"
             name="name"
@@ -109,7 +87,10 @@ export default function SignUpForm() {
 
         {/* Password */}
         <div className="relative">
-          <img src={LockIcon} className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+          <img
+            src={LockIcon}
+            className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400"
+          />
           <input
             type={showPassword ? "text" : "password"}
             name="password"
@@ -135,7 +116,10 @@ export default function SignUpForm() {
 
         {/* Date of birth */}
         <div className="relative">
-          <img src={CalendarIcon} className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+          <img
+            src={CalendarIcon}
+            className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400"
+          />
           <input
             type="date"
             name="dateOfBirth"
@@ -191,6 +175,12 @@ export default function SignUpForm() {
           </p>
         )}
       </form>
+      <p className="text-center text-sm text-gray-600 mt-4">
+        Already have an account?{" "}
+        <Link to="/signin" className="text-blue-600 hover:underline">
+          Sign In
+        </Link>
+      </p>
     </div>
   );
 }
