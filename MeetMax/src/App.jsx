@@ -11,6 +11,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import SignUpPage from "./pages/SignUp";
 import SignInPage from "./pages/SignIn";
+import ForgotPassword from "./pages/ForgotPassword";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         {/* Auth routes */}
         <Route path="/signin" element={<SignInPage />} />
         <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/forgotPassword" element={<ForgotPassword />} />
       </Routes>
     </Router>
     </main>
