@@ -305,7 +305,6 @@ export default function PostSection({posts}) {
                                 />
                                 <button
                                   onClick={(e) => {
-                                    // console.log(e.target.parentElement.querySelector(".input"));
                                     const input =
                                       e.target.parentElement.querySelector(
                                         "input"

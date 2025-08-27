@@ -43,7 +43,6 @@ const CreatePostPage = () => {
     }
   };
 
-  console.log(selectedImage);
   const handleCreatePost = () => {
     if (!postText.trim() && !selectedImage && !selectedFeeling) {
       alert("Please add text, image, or feeling to create a post");
@@ -103,7 +102,7 @@ const CreatePostPage = () => {
       <div className="bg-white border-b px-3 py-2.5 flex-shrink-0">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2.5">
-            <button className="p-0">
+            <button onClick={()=> navigate("/home")} className="p-0">
               <ArrowLeft className="w-5 h-5 text-gray-700" />
             </button>
             <h1 className="text-base font-medium text-gray-800">

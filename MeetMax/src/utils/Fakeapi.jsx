@@ -2,7 +2,6 @@ export const fakeApi = {
   signUp: async (userData) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        console.log("Signing up user:", userData);
         const users = JSON.parse(localStorage.getItem("users") || "[]");
 
         // check if email already exists

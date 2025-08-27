@@ -9,8 +9,7 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const currentUser = fakeApi.getCurrentUser();
-    console.log("AuthContext - currentUser:", currentUser);
-
+  
     setUser(currentUser);
     setLoading(false);
   }, []);

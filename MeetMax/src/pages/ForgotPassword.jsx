@@ -9,14 +9,13 @@ export default function ForgotPassword() {
       <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 p-6">
         <Header />
 
-        {/* Title */}
         <PageTitleAndDescription
           title="Forgot Password"
           description="Enter your details to receive a reset link"
         />
 
         <form className="space-y-4 mt-6">
-          {/* Email */}
+          
           <div className="relative">
             <img
               src={EmailIcon}
@@ -29,7 +28,7 @@ export default function ForgotPassword() {
             />
           </div>
 
-          {/* Send Button */}
+          
           <button
             type="submit"
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-lg transition"
@@ -38,7 +37,7 @@ export default function ForgotPassword() {
           </button>
         </form>
 
-        {/* Back to Sign In */}
+       
         <div className="mt-6 text-center">
           <Link
             to="/signin"

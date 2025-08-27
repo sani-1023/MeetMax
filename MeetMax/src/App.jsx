@@ -21,7 +21,6 @@ function App() {
             {/* Default redirect */}
             <Route path="/" element={<Navigate to="/signup" />} />
 
-            {/* Auth routes */}
             <Route path="/signin" element={<SignInPage />} />
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/forgotPassword" element={<ForgotPassword />} />

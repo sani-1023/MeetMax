@@ -189,7 +189,6 @@ const HomePage = () => {
   };
 
   const handleAddReply = (postId, commentId, replyText) => {
-    console.log("Adding reply to comment:", postId, commentId, replyText);
     if (!replyText?.trim()) return;
 
     const newReply = {
@@ -556,7 +555,6 @@ const HomePage = () => {
                                 />
                                 <button
                                   onClick={(e) => {
-                                    // console.log(e.target.parentElement.querySelector(".input"));
                                     const input =
                                       e.target.parentElement.querySelector(
                                         "input"

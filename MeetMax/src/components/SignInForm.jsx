@@ -40,7 +40,6 @@ export default function SignInForm() {
       // Simulate successful login
       const response = await signIn(form);
       alert("✅ Login successful!");
-      console.log("User logged in:", response.user);
       navigate("/home");
     } catch (err) {
       if (err.inner) {
