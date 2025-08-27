@@ -4,7 +4,7 @@ import DummyImage from "../assets/Dummy_Profile.svg";
 
 export default function BirthDaySection() {
   return (
-    <div className="px-4 pb-4">
+    <div className="px-4 pb-4 mt-1">
       <div className="flex items-center justify-between mb-3">
         <h3 className="font-semibold text-lg">Birthdays</h3>
         <button className="text-blue-500 text-sm">See All</button>

@@ -1,25 +1,12 @@
 import React, { useState } from "react";
-import {
-  ArrowLeft,
-  Search,
-  MessageSquare,
-  Home,
-  Users,
-  Globe,
-  Bell,
-  Settings,
-  Video,
-  Image,
-  Smile,
-  ChevronDown,
-  X,
-} from "lucide-react";
+import { ArrowLeft, ChevronDown, X } from "lucide-react";
 import NavigationBar from "../components/NavigationBar";
 import SmileIcon from "../assets/icons/Smile.svg";
 import VideoIcon from "../assets/icons/Video-camera.svg";
 import ImageIcon from "../assets/icons/Picture.svg";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
+import DummyImage from "../assets/Dummy_Profile.svg";
 
 const CreatePostPage = () => {
   const [postText, setPostText] = useState("");
@@ -27,12 +14,8 @@ const CreatePostPage = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedFeeling, setSelectedFeeling] = useState("");
   const [showFeelingModal, setShowFeelingModal] = useState(false);
-  const [showVisibilityDropdown, setShowVisibilityDropdown] = useState(false);
-  const [selectedImages, setSelectedImages] = useState([]);
 
   const navigate = useNavigate();
-
-
 
   const feelings = [
     { emoji: "😊", name: "happy" },
@@ -45,10 +28,13 @@ const CreatePostPage = () => {
     { emoji: "😤", name: "frustrated" },
   ];
 
-
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
+      if (file.size > 2 * 1024 * 1024) {
+        alert("File too large. Please select an image under 2MB.");
+        return;
+      }
       const reader = new FileReader();
       reader.onload = (e) => {
         setSelectedImage(e.target.result);
@@ -57,6 +43,7 @@ const CreatePostPage = () => {
     }
   };
 
+  console.log(selectedImage);
   const handleCreatePost = () => {
     if (!postText.trim() && !selectedImage && !selectedFeeling) {
       alert("Please add text, image, or feeling to create a post");
@@ -68,17 +55,19 @@ const CreatePostPage = () => {
       author: "You",
       time: "now",
       content: postText,
-      type: selectedImages.length > 0 ? "photo" : "status",
-      images: selectedImages.map(img => img.url),
+      type: selectedImage !== null ? "photo" : "status",
+      imageUrl: selectedImage !== null ? selectedImage : null,
       likes: 0,
       comments: [],
       shares: 0,
-      avatar: "/api/placeholder/40/40"
+      visibility: "public",
     };
 
-    const existingPosts = JSON.parse(localStorage.getItem('meetmax_posts') || '[]');
+    const existingPosts = JSON.parse(
+      localStorage.getItem("meetmax_posts") || "[]"
+    );
     const updatedPosts = [newPost, ...existingPosts];
-    localStorage.setItem('meetmax_posts', JSON.stringify(updatedPosts));
+    localStorage.setItem("meetmax_posts", JSON.stringify(updatedPosts));
 
     // Reset form
     setPostText("");
@@ -104,12 +93,14 @@ const CreatePostPage = () => {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto bg-white min-h-screen">
-      {/* Top Header with Profile and Search */}
-      <SearchBar />
+    <div className="w-full max-w-md mx-auto bg-white min-h-screen flex flex-col">
+      {/* Top Header with Profile and Search - Fixed */}
+      <div className="flex-shrink-0">
+        <SearchBar />
+      </div>
 
-      {/* Create Post Header */}
-      <div className="bg-white border-b px-3 py-2.5">
+      {/* Create Post Header - Fixed */}
+      <div className="bg-white border-b px-3 py-2.5 flex-shrink-0">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2.5">
             <button className="p-0">
@@ -129,98 +120,116 @@ const CreatePostPage = () => {
         </div>
       </div>
 
-      {/* Post Content Area */}
-      <div className="bg-white px-3 py-3">
-        <div className="flex items-start space-x-2.5">
-          <div className="w-9 h-9 rounded-full bg-gray-300 flex items-center justify-center flex-shrink-0">
-            <span className="text-sm">👤</span>
-          </div>
-          <div className="flex-1">
-            <div className="bg-gray-100 rounded-2xl p-3 min-h-[100px]">
-              <textarea
-                value={postText}
-                onChange={(e) => setPostText(e.target.value)}
-                placeholder="What's happening?"
-                className="w-full text-gray-500 text-base placeholder-gray-400 resize-none border-none outline-none bg-transparent"
-                rows="4"
-              />
+      {/* Scrollable Content Area */}
+      <div className="flex-1 overflow-y-auto">
+        {/* Post Content Area */}
+        <div className="bg-white px-3 py-3">
+          <div className="flex items-start space-x-2.5">
+            <img
+              src={DummyImage}
+              className="w-9 h-9 rounded-full bg-gray-300 flex items-center justify-center flex-shrink-0"
+            />
 
-              {/* Selected Feeling Display */}
-              {selectedFeeling && (
-                <div className="mt-2 inline-flex items-center bg-blue-50 rounded-full px-3 py-1 border border-blue-200">
-                  <span className="text-sm">
-                    feeling {selectedFeeling.emoji} {selectedFeeling.name}
-                  </span>
-                  <button
-                    onClick={removeFeeling}
-                    className="ml-2 text-gray-500 hover:text-gray-700"
-                  >
-                    <X className="w-3 h-3" />
-                  </button>
-                </div>
-              )}
+            <div className="flex-1">
+              <div className="bg-gray-100 rounded-2xl p-3 min-h-[100px]">
+                <textarea
+                  value={postText}
+                  onChange={(e) => setPostText(e.target.value)}
+                  placeholder="What's happening?"
+                  className="w-full text-gray-500 text-base placeholder-gray-400 resize-none border-none outline-none bg-transparent"
+                  rows={postText ? "auto" : "4"}
+                  style={{ minHeight: postText ? "auto" : "80px" }}
+                />
 
-              {/* Selected Image Display */}
-              {selectedImage && (
-                <div className="mt-3 relative">
-                  <img
-                    src={selectedImage}
-                    alt="Selected"
-                    className="w-full max-h-48 object-cover rounded-lg"
-                  />
-                  <button
-                    onClick={removeImage}
-                    className="absolute top-2 right-2 bg-black bg-opacity-50 text-white rounded-full p-1 hover:bg-opacity-70"
+                {/* Selected Feeling Display */}
+                {selectedFeeling && (
+                  <div
+                    className={`${
+                      postText.trim() ? "mt-2" : "mt-0"
+                    } inline-flex items-center bg-blue-50 rounded-full px-3 py-1 border border-blue-200`}
                   >
-                    <X className="w-4 h-4" />
-                  </button>
-                </div>
-              )}
+                    <span className="text-sm">
+                      feeling {selectedFeeling.emoji} {selectedFeeling.name}
+                    </span>
+                    <button
+                      onClick={removeFeeling}
+                      className="ml-2 text-gray-500 hover:text-gray-700"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  </div>
+                )}
+
+                {/* Selected Image Display */}
+                {selectedImage && (
+                  <div
+                    className={`${
+                      postText.trim() || selectedFeeling ? "mt-2" : "mt-0"
+                    } relative`}
+                  >
+                    <img
+                      src={selectedImage}
+                      alt="Selected"
+                      className="w-full max-h-48 object-cover rounded-lg"
+                    />
+                    <button
+                      onClick={removeImage}
+                      className="absolute top-2 right-2 bg-black bg-opacity-50 text-white rounded-full p-1 hover:bg-opacity-70"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Media Options */}
-      <div className="bg-white px-3 py-0 space-y-0">
-        <button className="w-full flex items-center space-x-3 py-2.5 text-left hover:bg-gray-50 transition-colors">
-          <img src={VideoIcon} className="w-4 h-4" />
-          <span className="text-gray-700 font-medium text-sm">Live Video</span>
-        </button>
+        {/* Media Options */}
+        <div className="bg-white px-3 py-0 space-y-0">
+          <button className="w-full flex items-center space-x-3 py-2.5 text-left hover:bg-gray-50 transition-colors">
+            <img src={VideoIcon} className="w-4 h-4" />
+            <span className="text-gray-700 font-medium text-sm">
+              Live Video
+            </span>
+          </button>
 
-        <label className="w-full flex items-center space-x-3 py-2.5 text-left hover:bg-gray-50 transition-colors cursor-pointer">
-          <img src={ImageIcon} className="w-4 h-4 text-green-500" />
-          <span className="text-gray-700 font-medium text-sm">Photo/Video</span>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageUpload}
-            className="hidden"
-          />
-        </label>
+          <label className="w-full flex items-center space-x-3 py-2.5 text-left hover:bg-gray-50 transition-colors cursor-pointer">
+            <img src={ImageIcon} className="w-4 h-4 text-green-500" />
+            <span className="text-gray-700 font-medium text-sm">
+              Photo/Video
+            </span>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="hidden"
+            />
+          </label>
 
-        <button
-          onClick={() => setShowFeelingModal(true)}
-          className="w-full flex items-center space-x-3 py-2.5 text-left hover:bg-gray-50 transition-colors"
-        >
-          <img src={SmileIcon} className="w-4 h-4 " />
-          <span className="text-gray-700 font-medium text-sm">Feeling</span>
-        </button>
-      </div>
+          <button
+            onClick={() => setShowFeelingModal(true)}
+            className="w-full flex items-center space-x-3 py-2.5 text-left hover:bg-gray-50 transition-colors"
+          >
+            <img src={SmileIcon} className="w-4 h-4 " />
+            <span className="text-gray-700 font-medium text-sm">Feeling</span>
+          </button>
+        </div>
 
-      {/* Post Button */}
-      <div className="bg-white px-3 py-3">
-        <button
-          onClick={handleCreatePost}
-          className={`w-full py-2.5 rounded-lg text-white font-medium text-sm ${
-            postText.trim() || selectedImage || selectedFeeling
-              ? "bg-blue-600 hover:bg-blue-700"
-              : "bg-gray-300 cursor-not-allowed"
-          }`}
-          disabled={!postText.trim() && !selectedImage && !selectedFeeling}
-        >
-          Post
-        </button>
+        {/* Post Button - Inside scrollable area with bottom margin */}
+        <div className="bg-white px-3 py-3 pb-24">
+          <button
+            onClick={handleCreatePost}
+            className={`w-full py-2.5 rounded-lg text-white font-medium text-sm ${
+              postText.trim() || selectedImage || selectedFeeling
+                ? "bg-blue-600 hover:bg-blue-700"
+                : "bg-gray-300 cursor-not-allowed"
+            }`}
+            disabled={!postText.trim() && !selectedImage && !selectedFeeling}
+          >
+            Post
+          </button>
+        </div>
       </div>
 
       {/* Feeling Selection Modal */}
@@ -251,8 +260,11 @@ const CreatePostPage = () => {
           </div>
         </div>
       )}
-      {/* Bottom Navigation */}
-      <NavigationBar />
+
+      {/* Bottom Navigation - Fixed */}
+      <div className="flex-shrink-0">
+        <NavigationBar />
+      </div>
     </div>
   );
 };
