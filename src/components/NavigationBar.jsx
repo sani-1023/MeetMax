@@ -9,10 +9,10 @@ export default function NavigationBar() {
   const [activeTab, setActiveTab] = useState("home");
   
   return (
-    <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 max-w-md w-full bg-white border-t">
-      <div className="flex items-center justify-around py-2">
+<div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-white border-t z-50">
+  <div className="flex items-center justify-start py-2 overflow-x-auto whitespace-nowrap">
         <button 
-          className="flex flex-col items-center py-2 px-4 relative"
+           className="flex flex-col items-center py-2 px-4 relative min-w-max"
           onClick={() => setActiveTab("home")}
         >
           <img 
@@ -29,7 +29,7 @@ export default function NavigationBar() {
         </button>
         
         <button 
-          className="flex flex-col items-center py-2 px-4 relative"
+       className="flex flex-col items-center py-2 px-4 relative min-w-max"
           onClick={() => setActiveTab("community")}
         >
           <img 
@@ -46,7 +46,7 @@ export default function NavigationBar() {
         </button>
         
         <button 
-          className="flex flex-col items-center py-2 px-4 relative"
+            className="flex flex-col items-center py-2 px-4 relative min-w-max"
           onClick={() => setActiveTab("explore")}
         >
           <img 
@@ -63,7 +63,7 @@ export default function NavigationBar() {
         </button>
         
         <button 
-          className="flex flex-col items-center py-2 px-4 relative"
+      className="flex flex-col items-center py-2 px-4 relative min-w-max"
           onClick={() => setActiveTab("notifications")}
         >
           <img 
@@ -84,7 +84,7 @@ export default function NavigationBar() {
         </button>
         
         <button 
-          className="flex flex-col items-center py-2 px-4 relative"
+      className="flex flex-col items-center py-2 px-4 relative min-w-max"
           onClick={() => setActiveTab("settings")}
         >
           <img 
