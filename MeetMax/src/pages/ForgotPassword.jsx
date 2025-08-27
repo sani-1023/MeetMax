@@ -44,7 +44,7 @@ export default function ForgotPassword() {
             to="/signin"
             className="text-sm text-blue-600 hover:underline flex items-center justify-center gap-1"
           >
-            <span className="mr-2">&lt;</span>  Back to Sign In
+            <span className="mr-2">&lt;</span> Back to Sign In
           </Link>
         </div>
       </div>
