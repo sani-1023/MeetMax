@@ -98,6 +98,18 @@ src/
 ```
 
 ---
+## 📸 Project Overview
+
+![Sign Up Screen](Project_overview/sign_up.png)
+![Sign In Screen](Project_overview/sign_in.png)
+![Forgot Password Screen](Project_overview/forgot_password.png)
+![Create Post Screen](Project_overview/post_create.png)
+![Home Screen](Project_overview/home.png)
+
+
+
+
+---
 
 ## 🤝 Contributor
 
