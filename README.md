@@ -108,7 +108,7 @@ The main routes configured in `src/App.jsx` are:
 | `/signup`         | SignUp            | Sign up page                       |
 | `/signin`         | SignIn            | Login page                         |
 | `/forgotPassword` | ForgotPassword    | Forgot Password  page              |
-| `/createPost`     | CreatePost        | Create Post page                   |
+| `/createPost`     | CreatePost        | Create Post page(requires auth)    |
 
 
 
