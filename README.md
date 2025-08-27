@@ -96,6 +96,22 @@ src/
   App.jsx
   main.jsx
 ```
+---
+
+## 🗺️ Routing
+
+The main routes configured in `src/App.jsx` are:
+
+| Path              | Component         | Description                        |
+|-------------------|-------------------|------------------------------------|
+| `/home`           | Home              | Home page (requires auth)          |
+| `/signup`         | SignUp            | Sign up page                       |
+| `/signin`         | SignIn            | Login page                         |
+| `/forgotPassword` | ForgotPassword    | Forgot Password  page              |
+| `/createPost`     | CreatePost        | Create Post page                   |
+
+
+
 
 ---
 ## 📸 Project Overview
